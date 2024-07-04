@@ -11,21 +11,10 @@ void OrderBook::place_order(std::shared_ptr<Order>& p_order) {
 	}
 }
 
-std::map<Price, BookLevel, std::greater<>> OrderBook::get_buy_orders() {
-	return this->buy_orders;
-}
-
-std::map<Price, BookLevel, std::less<>> OrderBook::get_sell_orders() {
-	return this->sell_orders;
-}
-
-std::unordered_map<ID, std::shared_ptr<Order>> OrderBook::get_id_to_order_map() {
-	return this->id_to_order;
-}
-
 void OrderBook::cancel_order(std::shared_ptr<Order> &p_order) {
 	if (p_order->is_fulfilled()) return; // as it has already been deleted when being fulfilled
 	Price price = p_order->get_price();
+
 	if (p_order->get_order_type() == OrderType::BUY) {
 		this->buy_orders[price].delete_order(p_order);
 		check_buy_level_for_empty(price);
@@ -45,4 +34,32 @@ void OrderBook::check_buy_level_for_empty(Price price) {
 
 void OrderBook::cancel_order(ID order_id) {
 	this->cancel_order(this->id_to_order[order_id]);
+}
+
+bool OrderBook::has_bids() {
+	return not this->sell_orders.empty();
+}
+
+bool OrderBook::has_asks() {
+	return not this->buy_orders.empty();
+}
+
+Price OrderBook::get_best_bid() {
+	return this->sell_orders.begin()->first;
+}
+
+Price OrderBook::get_best_ask() {
+	return this->buy_orders.begin()->first;
+}
+
+std::map<Price, BookLevel, std::greater<>> OrderBook::get_buy_orders() {
+	return this->buy_orders;
+}
+
+std::map<Price, BookLevel, std::less<>> OrderBook::get_sell_orders() {
+	return this->sell_orders;
+}
+
+std::unordered_map<ID, std::shared_ptr<Order>> OrderBook::get_id_to_order_map() {
+	return this->id_to_order;
 }

@@ -54,6 +54,30 @@ public:
 	void cancel_order(ID order_id);
 
 	/**
+	 * @brief Checks if there are currently bid orders in the book.
+	 * @return true if there is at least one sell order, false otherwise.
+	 */
+	bool has_bids();
+
+	/**
+	 * @brief Checks if there are currently ask orders in the book.
+	 * @return true if there is at least one buy order, false otherwise.
+	 */
+	bool has_asks();
+
+	/**
+	 * @brief Retrieves the best bid currently available, which is the lowest sell price.
+	 * @return The best bid in the order book.
+	 */
+	Price get_best_bid();
+
+	/**
+	 * @brief Retrieves the best ask currently available, which is the highest buy price.
+	 * @return The best ask in the order book.
+	 */
+	Price get_best_ask();
+
+	/**
 	 * @brief Retrieves the buy orders from the order book.
 	 * @return A map of buy orders organized by price.
 	 */
