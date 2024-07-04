@@ -1,7 +1,3 @@
-//
-// Created by Timothe on 04/07/2024.
-//
-
 #include "../include/OrderBook.h"
 
 void OrderBook::place_order(std::shared_ptr<Order>& p_order) {

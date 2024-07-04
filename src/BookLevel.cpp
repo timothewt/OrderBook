@@ -1,7 +1,3 @@
-//
-// Created by Timothe on 04/07/2024.
-//
-
 #include "../include/BookLevel.h"
 
 BookLevel::BookLevel() : p_level_head(nullptr), p_level_tail(nullptr), length(0) {}

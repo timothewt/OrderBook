@@ -1,7 +1,3 @@
-//
-// Created by Timothe on 03/07/2024.
-//
-
 #include "../include/Order.h"
 #include <sstream>
 #include <utility>
