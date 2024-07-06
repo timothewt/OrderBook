@@ -9,7 +9,7 @@ def get_random_price(mean, scale, side):
 
 
 def generate_order_id(used_order_ids):
-    new_id = random.randint(1, 10_000_000)  # Adjust the range based on your needs
+    new_id = random.randint(1, 10_000_000)
     while new_id in used_order_ids:
         new_id = random.randint(1, 10_000_000)
     used_order_ids.add(new_id)
