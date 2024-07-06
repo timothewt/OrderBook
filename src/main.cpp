@@ -1,25 +1,28 @@
 #include <iostream>
 #include "../include/Limit.h"
+#include "../include/Book.h"
 
 int main() {
 	std::cout << "Hello World!" << std::endl;
-	OrderPointer o1(new Order(0, 0, OrderType::BUY, 10, 50));
-	OrderPointer o2(new Order(1, 0, OrderType::BUY, 10, 40));
-	OrderPointer o3(new Order(2, 0, OrderType::BUY, 10, 30));
-	OrderPointer o4(new Order(3, 0, OrderType::SELL, 10, 80));
+	OrderPointer o1(new Order(0, 0, OrderType::BUY, 9, 50));
+	OrderPointer o2(new Order(1, 0, OrderType::BUY, 9, 40));
+	OrderPointer o3(new Order(2, 0, OrderType::BUY, 7, 30));
+	OrderPointer o4(new Order(2, 0, OrderType::BUY, 10, 30));
+	OrderPointer o5(new Order(4, 0, OrderType::SELL, 12, 40));
+	OrderPointer o6(new Order(5, 0, OrderType::SELL, 12, 80));
+	OrderPointer o7(new Order(3, 0, OrderType::SELL, 11, 80));
 
-	Limit limit(10);
-	limit.insert_order(o1);
-	limit.insert_order(o2);
-	limit.insert_order(o3);
-	limit.print();
+	Book b;
 
-	Trades trades = limit.match_order(o4);
-	limit.print();
+	b.place_order(o1);
+	b.place_order(o2);
+	b.place_order(o3);
+	b.place_order(o4);
+	b.place_order(o5);
+	b.place_order(o6);
+	b.place_order(o7);
 
-	for(auto trade: trades) {
-		trade.print();
-	}
+	b.print();
 
 	return 0;
 }

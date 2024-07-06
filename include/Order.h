@@ -1,7 +1,6 @@
 #ifndef ORDERBOOK_ORDER_H
 #define ORDERBOOK_ORDER_H
 
-
 #include <memory>
 #include "Types.h"
 
@@ -13,6 +12,7 @@ private:
 	Price price; /**< Limit price of the order */
 	Volume initial_volume; /**< Initial volume/number of shares in the order */
 	Volume volume; /**< Volume/number of remaining shares in the order */
+	OrderStatus order_status;  /**< Current status of the order */
 
 	/** As orders are stored in a doubly-linked list, each order stores its previous and next orders */
 	std::shared_ptr<Order> prev; /**< Previous order in the list */
@@ -20,8 +20,7 @@ private:
 
 public:
 	Order(ID id, ID agent_id, OrderType type, Price price, Volume volume):
-		id(id), agent_id(agent_id), type(type), price(price), initial_volume(volume), volume(volume), prev(nullptr), next(nullptr) {}
-
+		id(id), agent_id(agent_id), type(type), price(price), initial_volume(volume), volume(volume), order_status(ACTIVE), prev(nullptr), next(nullptr) {}
 
 	/**
 	 * @brief fills the order with a given volume (quantity)
@@ -40,6 +39,8 @@ public:
 	OrderType get_type() const;
 	Price get_price() const;
 	Volume get_volume();
+	OrderStatus get_status();
+	void set_status(OrderStatus status);
 	std::shared_ptr<Order> &get_prev();
 	void set_prev(std::shared_ptr<Order> &prev);
 	std::shared_ptr<Order> &get_next();

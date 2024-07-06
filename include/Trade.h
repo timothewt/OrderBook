@@ -2,6 +2,7 @@
 #define ORDERBOOK_TRADE_H
 
 #include <vector>
+#include <iostream>
 #include "Types.h"
 
 class Trade {

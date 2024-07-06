@@ -5,6 +5,7 @@
 void Order::fill(Volume fill_volume) {
 	if (fill_volume > volume) throw std::logic_error("Order cannot be filled with higher volume than its remaining volume.");
 	volume -= fill_volume;
+	if (volume == 0) order_status = FULFILLED;
 }
 
 bool Order::is_fulfilled() {
@@ -31,12 +32,20 @@ Volume Order::get_volume() {
 	return volume;
 }
 
+OrderStatus Order::get_status() {
+	return order_status;
+}
+
+void Order::set_status(OrderStatus status) {
+	order_status = status;
+}
+
 OrderPointer &Order::get_prev() {
 	return prev;
 }
 
 void Order::set_prev(OrderPointer &prev) {
-	Order::prev = prev;
+	this->prev = prev;
 }
 
 OrderPointer &Order::get_next() {
@@ -44,7 +53,7 @@ OrderPointer &Order::get_next() {
 }
 
 void Order::set_next(OrderPointer &next) {
-	Order::next = next;
+	this->next = next;
 }
 
 void Order::print() {
@@ -52,8 +61,9 @@ void Order::print() {
 		"Order(ID: " << id <<
 		", Agent ID: " << agent_id <<
 		", Type: " << (type == BUY ? "BUY" : "SELL") <<
-		", Price: " << price
-		<< ", Volume: " << volume
-		<< ")" <<
+		", Price: " << price <<
+		", Initial volume: " << initial_volume <<
+		", Volume: " << volume <<
+		")" <<
 	std::endl;
 }

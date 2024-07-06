@@ -1,6 +1,7 @@
 #ifndef ORDERBOOK_LIMIT_H
 #define ORDERBOOK_LIMIT_H
 
+#include <functional>
 #include "Order.h"
 #include "Trade.h"
 
@@ -22,7 +23,7 @@ public:
 	 */
 	void insert_order(OrderPointer& order);
 	/**
-	 * @brief Deletes an order from the limit order list
+	 * @brief Deletes an order from the limit order list. Assumes that the order is in this limit list.
 	 * @param order pointer to the order to delete
 	 */
 	void delete_order(OrderPointer& order);
@@ -32,6 +33,11 @@ public:
 	 * @return Trades an array of trades with the matched order
 	 */
 	Trades match_order(OrderPointer& order);
+	/**
+	 * @brief Checks if the limit is empty (i.e. no orders)
+	 * @return true if there are no order false otherwise
+	 */
+	bool is_empty();
 
 	/** Getters */
 	Price get_price() const;
@@ -42,5 +48,15 @@ public:
 	void print();
 };
 
+using LimitPointer = std::shared_ptr<Limit>;
+
+/**
+ * Compares two limits via their pointers
+ * @param a pointer to the first limit
+ * @param b pointer to the second limit
+ * @return true if a.price < b.price false otherwise
+ */
+
+extern const std::function<bool(const LimitPointer&, const LimitPointer&)> cmp_limits;
 
 #endif //ORDERBOOK_LIMIT_H

@@ -11,8 +11,6 @@ add_executable(OrderBook
         include/Book.h
         src/Limit.cpp
         include/Limit.h
-        src/BookSide.cpp
-        include/BookSide.h
         include/Types.h
         include/Trade.h
 )
