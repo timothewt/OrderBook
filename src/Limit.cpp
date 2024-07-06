@@ -1,7 +1,7 @@
 #include <iostream>
 #include "../include/Limit.h"
 
-void Limit::insert_order(OrderPointer& order) {
+void Limit::insert_order(OrderPointer order) {
 	if (length == 0) {
 		head = tail = order;
 	} else {
@@ -13,11 +13,12 @@ void Limit::insert_order(OrderPointer& order) {
 	length++;
 }
 
-void Limit::delete_order(OrderPointer& order) {
+void Limit::delete_order(OrderPointer order) {
 	if (not order) return;
 
 	if (length == 1) { // only order in the list
-		head = tail = nullptr;
+		head.reset();
+		tail.reset();
 	} else if (order == head) { // order at head of list
 		head = order->get_next();
 		order->get_next()->get_prev().reset();
@@ -28,9 +29,12 @@ void Limit::delete_order(OrderPointer& order) {
 		order->get_prev()->set_next(order->get_next());
 		order->get_next()->set_prev(order->get_prev());
 	}
+
+	order->print();
 	order->get_prev().reset();
 	order->get_next().reset();
-	order->set_status(DELETED);
+	if (order->get_status() != FULFILLED)
+		order->set_status(DELETED);
 	total_volume -= order->get_volume();
 	length--;
 }

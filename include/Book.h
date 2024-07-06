@@ -10,7 +10,7 @@ using PriceLimitMap = std::unordered_map<Price, LimitPointer>;
 using Orders = std::unordered_map<ID, OrderPointer>;
 
 class Book {
-public:
+private:
 	PriceTree buy_tree; /**< tree containing all limits of the buy side */
 	PriceLimitMap buy_limits; /**< Maps the buy limit prices to their limit objects*/
 

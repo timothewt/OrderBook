@@ -4,14 +4,19 @@ Trades Book::place_order(OrderPointer& order) {
 	Trades trades;
 	id_to_order[order->get_id()] = order;
 
-	// match order for buy:
-	// 		while (best_sell and order.price > best_sell.price)
-	//     		match with best_sell (which is a limit pointer)
-	//     		if best_sell is empty
-	//     			delete it
-	//				update best_sell
-	// same for sell:
-	//		opposite
+	if (order->get_type() == BUY) {
+		while (best_sell and order->get_price() >= best_sell and order->get_status() != FULFILLED) {
+			Trades trades_at_limit = sell_limits[best_sell]->match_order(order);
+			trades.insert(trades.end(), trades_at_limit.begin(), trades_at_limit.end());
+			check_for_empty_sell_limit(best_sell);
+		}
+	} else {
+		while (best_buy and order->get_price() <= best_buy and order->get_status() != FULFILLED) {
+			Trades trades_at_limit = buy_limits[best_buy]->match_order(order);
+			trades.insert(trades.end(), trades_at_limit.begin(), trades_at_limit.end());
+			check_for_empty_buy_limit(best_buy);
+		}
+	}
 
 	if (order->get_status() != FULFILLED)
 		insert_order(order);

@@ -6,7 +6,7 @@
 #include "Trade.h"
 
 class Limit {
-public:
+private:
 	Price price; /**< Limit price */
 	Length length; /**< Number of orders at this limit */
 	Volume total_volume; /**< Total volume at this limit */
@@ -21,12 +21,12 @@ public:
 	 * @brief Inserts an order at the end of the list
 	 * @param order pointer to the order to insert
 	 */
-	void insert_order(OrderPointer& order);
+	void insert_order(OrderPointer order);
 	/**
 	 * @brief Deletes an order from the limit order list. Assumes that the order is in this limit list.
 	 * @param order pointer to the order to delete
 	 */
-	void delete_order(OrderPointer& order);
+	void delete_order(OrderPointer order);
 	/**
 	 * @brief Matches an opposite OrderType order to the current orders in the list
 	 * @param order order to match
