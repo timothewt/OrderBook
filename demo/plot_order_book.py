@@ -21,5 +21,4 @@ if __name__ == "__main__":
     plt.ylabel("Volume")
     plt.title("Order Book Price Limits")
     plt.tight_layout()
-    plt.gcf().set_dpi(200)
-    plt.show()
+    plt.savefig("final_order_book", dpi=200)

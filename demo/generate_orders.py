@@ -3,6 +3,11 @@ import random
 import csv
 
 
+def get_random_price(mean, scale, side):
+    # return max(1, int((np_random.normal(mean, scale) + np_random.normal(mean, scale * .025) + np_random.normal(mean, scale * .05)) / 3))
+    return max(1, int(np_random.normal(mean * (1 + .5 * (side - .5)), scale)))
+
+
 def generate_order_id(used_order_ids):
     new_id = random.randint(1, 10_000_000)  # Adjust the range based on your needs
     while new_id in used_order_ids:
@@ -14,8 +19,8 @@ def generate_order_id(used_order_ids):
 def generate_order(used_order_ids):
     order_id = generate_order_id(used_order_ids)
     order_side = 0 if random.choice(["BUY", "SELL"]) == "BUY" else 1
-    price = max(1, int(np_random.normal(loc=500, scale=150)))
-    volume = max(1, int(np_random.normal(loc=1000, scale=300)))
+    price = get_random_price(500, 100, order_side)
+    volume = max(1, int(np_random.normal(loc=100, scale=300)))
     return order_id, 0, order_side, price, volume
 
 
@@ -33,7 +38,7 @@ if __name__ == "__main__":
     existing_order_ids = []
     operations = []
 
-    num_operations = 100_000
+    num_operations = 1_000_000
 
     for _ in range(num_operations):
         if random.random() < 0.8 or not existing_order_ids:  # 80% of placed orders
