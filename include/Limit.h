@@ -6,7 +6,7 @@
 #include "Trade.h"
 
 class Limit {
-private:
+public:
 	Price price; /**< Limit price */
 	Length length; /**< Number of orders at this limit */
 	Volume total_volume; /**< Total volume at this limit */
@@ -49,14 +49,5 @@ public:
 };
 
 using LimitPointer = std::shared_ptr<Limit>;
-
-/**
- * Compares two limits via their pointers
- * @param a pointer to the first limit
- * @param b pointer to the second limit
- * @return true if a.price < b.price false otherwise
- */
-
-extern const std::function<bool(const LimitPointer&, const LimitPointer&)> cmp_limits;
 
 #endif //ORDERBOOK_LIMIT_H

@@ -20,8 +20,10 @@ void Limit::delete_order(OrderPointer& order) {
 		head = tail = nullptr;
 	} else if (order == head) { // order at head of list
 		head = order->get_next();
+		order->get_next()->get_prev().reset();
 	} else if (order == tail) { // order at tail of list
 		tail = order->get_prev();
+		order->get_prev()->get_next().reset();
 	} else { // order in the list
 		order->get_prev()->set_next(order->get_next());
 		order->get_next()->set_prev(order->get_prev());
@@ -65,7 +67,7 @@ Volume Limit::get_total_volume() {
 }
 
 void Limit::print() {
-	std::cout << "Orders at limit " << price << " :" << std::endl;
+	std::cout << "Limit(Price: " << price << ", Total Volume: "<< total_volume << ", #Orders: " << length << "):" << std::endl;
 	OrderPointer curr = head;
 	while (curr) {
 		std::cout << "\t";
