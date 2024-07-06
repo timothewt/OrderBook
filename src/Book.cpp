@@ -142,6 +142,13 @@ void Book::print() {
 	}
 }
 
+Price Book::get_spread() {
+	return best_sell - best_buy;
+}
+double Book::get_mid_price() {
+	return (best_sell + best_buy) / 2.;
+}
+
 PriceTree& Book::get_buy_tree() { return buy_tree; }
 PriceLimitMap& Book::get_buy_limits() { return buy_limits; }
 PriceTree& Book::get_sell_tree() { return sell_tree; }
@@ -149,3 +156,8 @@ PriceLimitMap& Book::get_sell_limits() { return sell_limits; }
 Price Book::get_best_buy(){ return best_buy; }
 Price Book::get_best_sell() { return best_sell; }
 Orders& Book::get_id_to_order() { return id_to_order; }
+OrderStatus Book::get_order_status(ID id) {
+	if (id_to_order.contains(id))
+		return id_to_order[id]->get_status();
+	return DELETED;
+}

@@ -86,6 +86,9 @@ public:
 	void delete_order(ID id);
 
 	/** Getters */
+	Price get_spread();
+	double get_mid_price();
+
 	PriceTree& get_buy_tree();
 	PriceLimitMap& get_buy_limits();
 	PriceTree& get_sell_tree();
@@ -96,6 +99,8 @@ public:
 
 	/** Print method */
 	void print();
+
+	OrderStatus get_order_status(ID i);
 };
 
 
