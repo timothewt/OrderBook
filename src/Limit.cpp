@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../include/Limit.h"
+#include "Limit.h"
 
 void Limit::insert_order(OrderPointer order) {
 	if (length == 0) {
@@ -30,7 +30,6 @@ void Limit::delete_order(OrderPointer order) {
 		order->get_next()->set_prev(order->get_prev());
 	}
 
-	order->print();
 	order->get_prev().reset();
 	order->get_next().reset();
 	if (order->get_status() != FULFILLED)
@@ -46,6 +45,7 @@ Trades Limit::match_order(OrderPointer& order) {
 		Volume fill_volume = std::min(head->get_volume(), order->get_volume());
 		head->fill(fill_volume);
 		order->fill(fill_volume);
+		total_volume -= fill_volume;
 		trades.emplace_back(order->get_id(), head->get_id(), price, fill_volume);
 		if (head->is_fulfilled())
 			delete_order(head);
@@ -58,17 +58,9 @@ bool Limit::is_empty() {
 	return length == 0;
 }
 
-Price Limit::get_price() const {
-	return price;
-}
-
-Length Limit::get_length() {
-	return length;
-}
-
-Volume Limit::get_total_volume() {
-	return total_volume;
-}
+Price Limit::get_price() const { return price; }
+Length Limit::get_length() { return length; }
+Volume Limit::get_total_volume() { return total_volume; }
 
 void Limit::print() {
 	std::cout << "Limit(Price: " << price << ", Total Volume: "<< total_volume << ", #Orders: " << length << "):" << std::endl;

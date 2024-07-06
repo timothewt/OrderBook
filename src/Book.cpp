@@ -1,6 +1,9 @@
-#include "../include/Book.h"
+#include "Book.h"
 
 Trades Book::place_order(OrderPointer& order) {
+	if (order->get_price() <= 0)
+		return {};
+
 	Trades trades;
 	id_to_order[order->get_id()] = order;
 
@@ -138,3 +141,11 @@ void Book::print() {
 		sell_limits[price]->print();
 	}
 }
+
+PriceTree& Book::get_buy_tree() { return buy_tree; }
+PriceLimitMap& Book::get_buy_limits() { return buy_limits; }
+PriceTree& Book::get_sell_tree() { return sell_tree; }
+PriceLimitMap& Book::get_sell_limits() { return sell_limits; }
+Price Book::get_best_buy(){ return best_buy; }
+Price Book::get_best_sell() { return best_sell; }
+Orders& Book::get_id_to_order() { return id_to_order; }

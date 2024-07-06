@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../include/Order.h"
+#include "Order.h"
 
 
 void Order::fill(Volume fill_volume) {
@@ -12,49 +12,17 @@ bool Order::is_fulfilled() {
 	return volume == 0;
 }
 
-ID Order::get_id() const {
-	return id;
-}
-
-ID Order::get_agent_id() const {
-	return agent_id;
-}
-
-OrderType Order::get_type() const {
-	return type;
-}
-
-Price Order::get_price() const {
-	return price;
-}
-
-Volume Order::get_volume() {
-	return volume;
-}
-
-OrderStatus Order::get_status() {
-	return status;
-}
-
-void Order::set_status(OrderStatus status) {
-	this->status = status;
-}
-
-OrderPointer &Order::get_prev() {
-	return prev;
-}
-
-void Order::set_prev(OrderPointer& prev) {
-	this->prev = prev;
-}
-
-OrderPointer &Order::get_next() {
-	return next;
-}
-
-void Order::set_next(OrderPointer& next) {
-	this->next = next;
-}
+ID Order::get_id() const { return id; }
+ID Order::get_agent_id() const { return agent_id; }
+OrderType Order::get_type() const { return type; }
+Price Order::get_price() const { return price; }
+Volume Order::get_volume() { return volume; }
+OrderStatus Order::get_status() { return status; }
+void Order::set_status(OrderStatus status) { this->status = status; }
+OrderPointer &Order::get_prev() { return prev; }
+void Order::set_prev(OrderPointer& prev) { this->prev = prev; }
+OrderPointer &Order::get_next() { return next; }
+void Order::set_next(OrderPointer& next) { this->next = next; }
 
 void Order::print() {
 	std::cout <<
