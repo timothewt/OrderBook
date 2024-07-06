@@ -1,10 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <string>
-#include <vector>
 #include <chrono>
-#include "../src/Book.h"
+#include "Book.h"
 
 std::vector<std::string> split(const std::string &line, char delimiter) {
 	std::vector<std::string> tokens;
@@ -14,6 +12,19 @@ std::vector<std::string> split(const std::string &line, char delimiter) {
 		tokens.push_back(token);
 	}
 	return tokens;
+}
+
+void write_final_order_book(Book& book) {
+	std::ofstream file("C:\\Users\\Timothe\\Documents\\Projects\\OrderBook\\demo\\final_order_book.csv");
+	if (!file.is_open()) {
+		std::cerr << "Error opening file.\n";
+		return;
+	}
+	file << "Price Limit,Side,Volume\n";
+	for (auto& limit: book.get_buy_limits())
+		file << limit.first << ",BUY,"<< limit.second->get_total_volume() << "\n";
+	for (auto& limit: book.get_sell_limits())
+		file << limit.first << ",SELL,"<< limit.second->get_total_volume() << "\n";
 }
 
 void demo() {
@@ -50,4 +61,6 @@ void demo() {
 	std::cout << "Operations per second: " << (double)nb_op / elapsed_seconds.count() << std::endl;
 
 	file.close();
+
+	write_final_order_book(book);
 }

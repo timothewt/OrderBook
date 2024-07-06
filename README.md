@@ -2,6 +2,10 @@
 
 This repository contains the C++ implementation of a high-performance Limit Order Book (LOB) and its Matching Engine.
 
+<p align="center" width="100%">
+    <img width="50%" src="demo/final_order_book.png"> 
+</p>
+
 ## Overview
 
 The Limit Order Book is designed using a combination of data structures to optimize order insertion, deletion, and matching:
